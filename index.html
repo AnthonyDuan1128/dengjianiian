@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>欢迎来到邓贱贱的世界</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      height: 100%;
+      width: 100%;
+      color: white;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+      filter: brightness(0.6);
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 0.5em;
+    }
+
+    p {
+      font-size: 1.2em;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    a {
+      color: #ffdddd;
+      text-decoration: none;
+      border-bottom: 1px dashed #ffdddd;
+    }
+
+    a:hover {
+      color: #fff;
+      border-bottom: 1px solid #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>欢迎来到邓贱贱的世界</h1>
+    <p>这是我的个人博客空间，记录一些思考、生活、灵感与奇遇。</p>
+    <p>想了解更多？<a href="#more">敬请期待~</a></p>
+  </div>
+
+  <script>
+    // 自动查找同目录下的唯一图片文件
+    fetch(window.location.href)
+      .then(res => res.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const matches = [...html.matchAll(/<a href="([^"]+\.(jpg|jpeg|png|webp|gif))"/gi)];
+        if (matches.length === 1) {
+          const imageUrl = matches[0][1];
+          document.body.style.backgroundImage = `url('${imageUrl}')`;
+          document.body.style.backgroundSize = 'cover';
+          document.body.style.backgroundPosition = 'center';
+        } else {
+          console.warn("找不到唯一图片，请确保目录中只有一张图片。");
+        }
+      })
+      .catch(err => console.error("图片加载失败:", err));
+  </script>
+</body>
+</html>
