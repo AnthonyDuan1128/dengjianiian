@@ -5,9 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>欢迎来到邓贱贱的世界</title>
   <style>
-    /* 新增关键样式 */
-    body.loaded::before {
-      display: block !important;
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family:
+        -apple-system, BlinkMacSystemFont, 'Segoe UI',
+        'PingFang SC', 'Microsoft YaHei', 'Noto Sans',
+        'Helvetica Neue', Helvetica, Arial, sans-serif;
+      height: 100%;
+      width: 100%;
+      color: white;
+      overflow: hidden;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
     }
 
     body::before {
@@ -17,49 +26,50 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                  url('IMG_0709.PNG') no-repeat center center/cover,
-                  #2d2d2d;
+      background: url('IMG_0709.PNG') no-repeat center center / cover;
       z-index: -1;
-      filter: blur(3px) brightness(0.7);
-      transform: scale(1.02);
-      opacity: 0;
-      transition: opacity 0.8s ease;
+      filter: brightness(0.6);
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 3.5em;
+      font-weight: 700;
+      margin-bottom: 0.6em;
+    }
+
+    p {
+      font-size: 1.3em;
+      line-height: 1.8;
+      max-width: 650px;
+    }
+
+    a {
+      color: #ffdddd;
+      text-decoration: none;
+      border-bottom: 1px dashed #ffdddd;
+    }
+
+    a:hover {
+      color: #fff;
+      border-bottom: 1px solid #fff;
     }
   </style>
 </head>
 <body>
-  <!-- 保持原有结构和脚本不变 -->
-  <script>
-    function loadImageWithProgress() {
-      // ...原有代码...
-
-      img.onload = () => {
-        clearInterval(fakeLoader);
-        progressText.textContent = '正在加载背景图 100%';
-        progressBar.style.width = '100%';
-        
-        // 新增关键代码：强制触发浏览器重绘
-        document.body.style.background = 'inherit';
-        
-        // 显示背景图片
-        document.body.classList.add('loaded');
-        document.querySelector('body::before').style.opacity = 1;
-        
-        setTimeout(() => {
-          document.querySelector('.container').style.opacity = 1;
-        }, 500);
-      };
-
-      img.onerror = () => {
-        // 新增错误处理
-        document.body.style.background = "linear-gradient(135deg, #2d2d2d, #1a1a1a)";
-        progressText.textContent = '图片加载失败';
-        progressBar.style.backgroundColor = '#ff4444';
-      };
-
-      img.src = 'IMG_0709.PNG';
-    }
-  </script>
+  <div class="container">
+    <h1>欢迎来到邓贱贱的世界</h1>
+    <p>这是我的个人博客空间，记录一些灵魂思考、CS生活、灵感与奇遇。</p>
+    <p>想了解更多？<a href="#more">正在载入图片，请稍候~</a></p>
+  </div>
 </body>
 </html>
