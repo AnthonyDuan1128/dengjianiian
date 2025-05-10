@@ -5,98 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>欢迎来到邓贱贱的世界</title>
   <style>
-    /* 新增加载进度样式 */
-    .loader {
+    /* 新增关键样式 */
+    body.loaded::before {
+      display: block !important;
+    }
+
+    body::before {
+      content: "";
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 1.8em;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-      z-index: 999;
-    }
-
-    .progress-bar {
-      width: 200px;
-      height: 3px;
-      background: rgba(255,255,255,0.2);
-      margin: 10px auto;
-      border-radius: 2px;
-      overflow: hidden;
-    }
-
-    .progress {
-      width: 0%;
+      top: 0;
+      left: 0;
+      width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, #ffd9d9, #ffffff);
-      transition: width 0.3s ease;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                  url('IMG_0709.PNG') no-repeat center center/cover,
+                  #2d2d2d;
+      z-index: -1;
+      filter: blur(3px) brightness(0.7);
+      transform: scale(1.02);
+      opacity: 0;
+      transition: opacity 0.8s ease;
     }
-    
-    /* 隐藏加载完成后的内容 */
-    .container { opacity: 0; transition: opacity 0.5s 0.3s; }
-    .loaded .container { opacity: 1; }
-    .loaded .loader { display: none; }
   </style>
 </head>
 <body>
-  <!-- 加载进度 -->
-  <div class="loader">
-    <div class="progress-text">正在加载背景图 0%</div>
-    <div class="progress-bar">
-      <div class="progress"></div>
-    </div>
-  </div>
-
-  <!-- 页面内容 -->
-  <div class="container">
-    <h1>欢迎来到邓贱贱的世界</h1>
-    <p>这是我的个人博客空间，记录一些灵魂思考、CS生活、灵感与奇遇。</p>
-    <p>想了解更多？<a href="#more" class="loading-link">探索更多内容 ✨</a></p>
-  </div>
-
+  <!-- 保持原有结构和脚本不变 -->
   <script>
-    // 图片预加载与进度监控
     function loadImageWithProgress() {
-      const img = new Image();
-      const progressText = document.querySelector('.progress-text');
-      const progressBar = document.querySelector('.progress');
-      const container = document.querySelector('.container');
-      
-      // 模拟进度更新（实际加载使用下方真进度代码）
-      let simulatedProgress = 0;
-      const fakeLoader = setInterval(() => {
-        simulatedProgress += Math.random() * 10;
-        if(simulatedProgress >= 90) clearInterval(fakeLoader);
-        progressText.textContent = `正在加载背景图 ${Math.min(100, simulatedProgress|0)}%`;
-        progressBar.style.width = Math.min(90, simulatedProgress) + '%';
-      }, 200);
-
-      // 真实加载进度（需要服务器支持Content-Length）
-      img.onprogress = (e) => {
-        if(e.lengthComputable) {
-          const percent = (e.loaded / e.total * 100)|0;
-          progressText.textContent = `正在加载背景图 ${percent}%`;
-          progressBar.style.width = percent + '%';
-        }
-      };
+      // ...原有代码...
 
       img.onload = () => {
         clearInterval(fakeLoader);
         progressText.textContent = '正在加载背景图 100%';
         progressBar.style.width = '100%';
-        setTimeout(() => document.body.classList.add('loaded'), 500);
+        
+        // 新增关键代码：强制触发浏览器重绘
+        document.body.style.background = 'inherit';
+        
+        // 显示背景图片
+        document.body.classList.add('loaded');
+        document.querySelector('body::before').style.opacity = 1;
+        
+        setTimeout(() => {
+          document.querySelector('.container').style.opacity = 1;
+        }, 500);
       };
 
       img.onerror = () => {
+        // 新增错误处理
+        document.body.style.background = "linear-gradient(135deg, #2d2d2d, #1a1a1a)";
         progressText.textContent = '图片加载失败';
         progressBar.style.backgroundColor = '#ff4444';
       };
 
-      img.src = 'IMG_0709.PNG'; // 你的图片路径
+      img.src = 'IMG_0709.PNG';
     }
-
-    // 启动加载
-    window.addEventListener('DOMContentLoaded', loadImageWithProgress);
   </script>
 </body>
 </html>
