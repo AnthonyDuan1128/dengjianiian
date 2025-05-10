@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>欢迎来到邓贱贱的世界</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Serif SC', 'Helvetica Neue', sans-serif;
+      height: 100%;
+      width: 100%;
+      color: white;
+      overflow: hidden;
+      background: #1a1a1a;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                  url('IMG_0709.PNG') no-repeat center center / cover;
+      z-index: -1;
+      filter: blur(3px) brightness(0.7);
+      transform: scale(1.02);
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    h1 {
+      font-size: 4em;
+      margin-bottom: 0.5em;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      background: linear-gradient(45deg, #fff, #ffd9d9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+    }
+
+    p {
+      font-size: 1.4em;
+      max-width: 800px;
+      line-height: 1.8;
+      margin: 1em 0;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      opacity: 0.95;
+    }
+
+    a {
+      color: #ffd9d9;
+      text-decoration: none;
+      border-bottom: 2px dashed rgba(255,217,217,0.5);
+      transition: all 0.3s ease;
+      position: relative;
+      padding-bottom: 3px;
+    }
+
+    a:hover {
+      color: #fff;
+      border-bottom: 2px solid #fff;
+      transform: translateY(-2px);
+    }
+
+    a::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #fff;
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    a:hover::after {
+      transform: scaleX(1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5em; }
+      p { font-size: 1.1em; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>欢迎来到邓贱贱的世界</h1>
+    <p>这是我的个人博客空间，记录一些灵魂思考、CS生活、灵感与奇遇。</p>
+    <p>想了解更多？<a href="#more" class="loading-link">探索更多内容 ✨</a></p>
+  </div>
+</body>
+</html>
